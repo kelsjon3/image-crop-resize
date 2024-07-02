@@ -6,48 +6,37 @@
     <title>Image Crop and Resize for IP Phones</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
-    <style>
-        #image-container {
-            max-width: 500px;
-            margin: 20px auto;
-        }
-        #preview-image {
-            max-width: 100%;
-        }
-        #cropped-image {
-            max-width: 100%;
-        }
-        #debug-output {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-top: 20px;
-        }
-    </style>
-    <script>
-        console.log('Cropper.js version:', Cropper.version);
-    </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap">
+    <link rel="stylesheet" href="/shared.css">
 </head>
 <body>
-    <h1>Image Crop and Resize for IP Phones - Version 1.3</h1>
-    <p>Last updated: <span id="last-updated"></span></p>
-    <input type="file" id="image-input" accept="image/*">
-    <div id="image-container">
-        <img id="preview-image" src="" alt="Preview image">
-    </div>
-    <button id="crop-button">Crop</button>
-    <select id="phone-model">
-        <option value="">Select IP Phone Model</option>
-        <option value="model1">Model 1 (320x240)</option>
-        <option value="model2">Model 2 (480x320)</option>
-        <option value="model3">Model 3 (800x480)</option>
-    </select>
-    <div id="preview-container">
-        <h2>Preview</h2>
-        <img id="cropped-image" src="" alt="Cropped image">
-    </div>
-    <div id="debug-output">
-        <h3>Debug Output:</h3>
-        <pre id="debug-log"></pre>
+    <nav class="navbar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/admin">Admin</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Image Crop and Resize for IP Phones</h1>
+        <p>Last updated: <span id="last-updated"></span></p>
+        <div>
+            <input type="file" id="image-input" accept="image/*">
+            <select id="phone-model">
+                <option value="">Select IP Phone Model</option>
+            </select>
+            <button id="crop-button">Crop and Resize</button>
+        </div>
+        <div id="image-container">
+            <img id="preview-image" src="" alt="Preview image">
+        </div>
+        <div id="preview-container">
+            <h2>Preview</h2>
+            <img id="cropped-image" src="" alt="Cropped image">
+        </div>
+        <div id="debug-output">
+            <h3>Debug Output:</h3>
+            <pre id="debug-log"></pre>
+        </div>
     </div>
     <script src="app.js"></script>
 </body>
