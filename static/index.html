@@ -19,19 +19,29 @@
     <div class="container">
         <h1>Image Crop and Resize for IP Phones</h1>
         <p>Last updated: <span id="last-updated"></span></p>
-        <div>
+        <div class="input-section">
             <input type="file" id="image-input" accept="image/*">
             <select id="phone-model">
                 <option value="">Select IP Phone Model</option>
             </select>
-            <button id="crop-button">Crop and Resize</button>
+            <button id="crop-button" disabled>Crop and Resize</button>
         </div>
-        <div id="image-container">
+        <div id="image-container" style="display: none;">
+            <h2>Original Image</h2>
             <img id="preview-image" src="" alt="Preview image">
         </div>
-        <div id="preview-container">
-            <h2>Preview</h2>
+        <div id="preview-container" style="display: none;">
+            <h2>Cropped and Resized Image</h2>
             <img id="cropped-image" src="" alt="Cropped image">
+        </div>
+        <div id="instructions">
+            <h3>Instructions:</h3>
+            <ol>
+                <li>Choose an image file using the file input above.</li>
+                <li>Select the IP Phone model from the dropdown list.</li>
+                <li>Click the "Crop and Resize" button to process the image.</li>
+                <li>The original and processed images will appear below.</li>
+            </ol>
         </div>
         <div id="debug-output">
             <h3>Debug Output:</h3>

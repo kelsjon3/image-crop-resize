@@ -8,31 +8,27 @@ const phoneModel = document.getElementById('phone-model');
 const croppedImage = document.getElementById('cropped-image');
 const debugLog = document.getElementById('debug-log');
 const lastUpdated = document.getElementById('last-updated');
+const imageContainer = document.getElementById('image-container');
+const previewContainer = document.getElementById('preview-container');
 
 // Set last updated time
 lastUpdated.textContent = new Date().toLocaleString();
 
 function log(message) {
     console.log(message);
-    const debugLog = document.getElementById('debug-log');
-    if (debugLog) {
-        debugLog.textContent += message + '\n';
-    } else {
-        console.error('Debug log element not found');
-    }
+    debugLog.textContent += message + '\n';
 }
 
 function loadPhoneModels() {
     fetch('/api/models')
         .then(response => response.json())
         .then(models => {
-            const phoneModelSelect = document.getElementById('phone-model');
-            phoneModelSelect.innerHTML = '<option value="">Select IP Phone Model</option>';
+            phoneModel.innerHTML = '<option value="">Select IP Phone Model</option>';
             for (const [name, [width, height]] of Object.entries(models)) {
                 const option = document.createElement('option');
                 option.value = name;
                 option.textContent = `${name} (${width}x${height})`;
-                phoneModelSelect.appendChild(option);
+                phoneModel.appendChild(option);
             }
         });
 }
@@ -50,6 +46,7 @@ imageInput.addEventListener('change', (e) => {
         reader.onload = (event) => {
             log('File read successfully');
             previewImage.src = event.target.result;
+            imageContainer.style.display = 'block';
             if (cropper) {
                 log('Destroying existing cropper');
                 cropper.destroy();
@@ -59,10 +56,13 @@ imageInput.addEventListener('change', (e) => {
                 aspectRatio: 1,
                 viewMode: 1,
             });
+            cropButton.disabled = false;
         };
         reader.readAsDataURL(file);
     } else {
         log('No file selected');
+        imageContainer.style.display = 'none';
+        cropButton.disabled = true;
     }
 });
 
@@ -73,8 +73,6 @@ cropButton.addEventListener('click', () => {
         alert('Please select an image first.');
         return;
     }
-    const croppedCanvas = cropper.getCroppedCanvas();
-    log('Image cropped');
     const selectedModel = phoneModel.value;
     
     if (!selectedModel) {
@@ -84,6 +82,9 @@ cropButton.addEventListener('click', () => {
     }
 
     log(`Selected model: ${selectedModel}`);
+    const croppedCanvas = cropper.getCroppedCanvas();
+    log('Image cropped');
+
     croppedCanvas.toBlob((blob) => {
         log('Cropped image converted to blob');
         const formData = new FormData();
@@ -103,6 +104,7 @@ cropButton.addEventListener('click', () => {
             log('Received processed image from server');
             const url = URL.createObjectURL(blob);
             croppedImage.src = url;
+            previewContainer.style.display = 'block';
             log('Displayed processed image');
         })
         .catch(error => {
