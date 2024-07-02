@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Crop and Resize for IP Phones</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <style>
+        #image-container {
+            max-width: 500px;
+            margin: 20px auto;
+        }
+        #cropped-image {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Crop and Resize for IP Phones</h1>
+    <input type="file" id="image-input" accept="image/*">
+    <div id="image-container">
+        <img id="image" src="" alt="Upload an image">
+    </div>
+    <button id="crop-button">Crop</button>
+    <select id="phone-model">
+        <option value="">Select IP Phone Model</option>
+        <option value="model1">Model 1 (320x240)</option>
+        <option value="model2">Model 2 (480x320)</option>
+        <option value="model3">Model 3 (800x480)</option>
+    </select>
+    <div id="preview-container">
+        <h2>Preview</h2>
+        <img id="cropped-image" src="" alt="Cropped image">
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
