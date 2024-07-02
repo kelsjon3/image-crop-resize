@@ -22,6 +22,23 @@ function log(message) {
     }
 }
 
+function loadPhoneModels() {
+    fetch('/api/models')
+        .then(response => response.json())
+        .then(models => {
+            const phoneModelSelect = document.getElementById('phone-model');
+            phoneModelSelect.innerHTML = '<option value="">Select IP Phone Model</option>';
+            for (const [name, [width, height]] of Object.entries(models)) {
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = `${name} (${width}x${height})`;
+                phoneModelSelect.appendChild(option);
+            }
+        });
+}
+
+document.addEventListener('DOMContentLoaded', loadPhoneModels);
+
 log('JavaScript initialized');
 
 imageInput.addEventListener('change', (e) => {
