@@ -17,10 +17,16 @@
         #cropped-image {
             max-width: 100%;
         }
+        #debug-output {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
-    <h1>Image Crop and Resize for IP Phones</h1>
+    <h1>Image Crop and Resize for IP Phones - Version 1.1</h1>
+    <p>Last updated: <span id="last-updated"></span></p>
     <input type="file" id="image-input" accept="image/*">
     <div id="image-container">
         <img id="preview-image" src="" alt="Preview image">
@@ -35,6 +41,10 @@
     <div id="preview-container">
         <h2>Preview</h2>
         <img id="cropped-image" src="" alt="Cropped image">
+    </div>
+    <div id="debug-output">
+        <h3>Debug Output:</h3>
+        <pre id="debug-log"></pre>
     </div>
     <script src="app.js"></script>
 </body>
