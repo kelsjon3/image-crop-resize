@@ -7,6 +7,13 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
+# Install system dependencies required for Pillow
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    gcc \
+    libjpeg-dev \
+    zlib1g-dev
+
 # Install the required packages
 RUN pip install --no-cache-dir flask pillow
 
