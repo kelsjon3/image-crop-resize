@@ -1,8 +1,9 @@
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, send_from_directory
 from PIL import Image
 import io
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='static')
 
 PHONE_RESOLUTIONS = {
     'model1': (320, 240),
@@ -12,7 +13,11 @@ PHONE_RESOLUTIONS = {
 
 @app.route('/')
 def index():
-    return app.send_static_file('index.html')
+    return send_from_directory(app.static_folder, 'index.html')
+
+@app.route('/app.js')
+def serve_js():
+    return send_from_directory(app.static_folder, 'app.js')
 
 @app.route('/process_image', methods=['POST'])
 def process_image():

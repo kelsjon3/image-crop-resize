@@ -1,3 +1,5 @@
+console.log('JavaScript file loaded');
+
 let cropper;
 const imageInput = document.getElementById('image-input');
 const previewImage = document.getElementById('preview-image');
@@ -12,16 +14,21 @@ lastUpdated.textContent = new Date().toLocaleString();
 
 function log(message) {
     console.log(message);
-    debugLog.textContent += message + '\n';
+    const debugLog = document.getElementById('debug-log');
+    if (debugLog) {
+        debugLog.textContent += message + '\n';
+    } else {
+        console.error('Debug log element not found');
+    }
 }
 
-log('JavaScript loaded');
+log('JavaScript initialized');
 
 imageInput.addEventListener('change', (e) => {
     log('File input changed');
     const file = e.target.files[0];
     if (file) {
-        log(`File selected: ${file.name}`);
+        log(`File selected: ${file.name}, type: ${file.type}, size: ${file.size} bytes`);
         const reader = new FileReader();
         reader.onload = (event) => {
             log('File read successfully');
@@ -37,13 +44,15 @@ imageInput.addEventListener('change', (e) => {
             });
         };
         reader.readAsDataURL(file);
+    } else {
+        log('No file selected');
     }
 });
 
 cropButton.addEventListener('click', () => {
     log('Crop button clicked');
     if (!cropper) {
-        log('No cropper instance found');
+        log('No cropper instance found. Has an image been loaded?');
         alert('Please select an image first.');
         return;
     }
