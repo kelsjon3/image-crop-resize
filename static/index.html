@@ -11,6 +11,9 @@
             max-width: 500px;
             margin: 20px auto;
         }
+        #preview-image {
+            max-width: 100%;
+        }
         #cropped-image {
             max-width: 100%;
         }
@@ -20,7 +23,7 @@
     <h1>Image Crop and Resize for IP Phones</h1>
     <input type="file" id="image-input" accept="image/*">
     <div id="image-container">
-        <img id="image" src="" alt="Upload an image">
+        <img id="preview-image" src="" alt="Preview image">
     </div>
     <button id="crop-button">Crop</button>
     <select id="phone-model">

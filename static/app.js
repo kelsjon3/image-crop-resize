@@ -1,27 +1,33 @@
 let cropper;
 const imageInput = document.getElementById('image-input');
-const image = document.getElementById('image');
+const previewImage = document.getElementById('preview-image');
 const cropButton = document.getElementById('crop-button');
 const phoneModel = document.getElementById('phone-model');
 const croppedImage = document.getElementById('cropped-image');
 
 imageInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (event) => {
-        image.src = event.target.result;
-        if (cropper) {
-            cropper.destroy();
-        }
-        cropper = new Cropper(image, {
-            aspectRatio: 1,
-            viewMode: 1,
-        });
-    };
-    reader.readAsDataURL(file);
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            previewImage.src = event.target.result;
+            if (cropper) {
+                cropper.destroy();
+            }
+            cropper = new Cropper(previewImage, {
+                aspectRatio: 1,
+                viewMode: 1,
+            });
+        };
+        reader.readAsDataURL(file);
+    }
 });
 
 cropButton.addEventListener('click', () => {
+    if (!cropper) {
+        alert('Please select an image first.');
+        return;
+    }
     const croppedCanvas = cropper.getCroppedCanvas();
     const selectedModel = phoneModel.value;
     
@@ -30,8 +36,8 @@ cropButton.addEventListener('click', () => {
         return;
     }
 
-    const formData = new FormData();
     croppedCanvas.toBlob((blob) => {
+        const formData = new FormData();
         formData.append('image', blob, 'cropped.jpg');
         formData.append('model', selectedModel);
 
@@ -45,5 +51,5 @@ cropButton.addEventListener('click', () => {
             croppedImage.src = url;
         })
         .catch(error => console.error('Error:', error));
-    });
+    }, 'image/jpeg');
 });
